@@ -16,12 +16,12 @@ export class SeedService implements OnModuleInit {
 
         if (!existingAdmin) {
             const salt = await bcrypt.genSalt(10);
-            const passwordHash = await bcrypt.hash('admin', salt);
+            const passwordHash = await bcrypt.hash('123456', salt);
 
             await this.userService.create({
                 email: adminEmail,
                 passwordHash,
-                role: '123456',
+                role: 'admin',
             });
             console.log('Default admin user created: admin@email.com / admin');
         } else {
