@@ -62,7 +62,7 @@ const login = async () => {
         if (data.access_token) {
             localStorage.setItem('token', data.access_token)
             localStorage.setItem('user', JSON.stringify(data.user))
-            router.push('/admin')
+            router.push('/') 
         }
     } catch (err) {
         errorMsg.value = 'Server error'
