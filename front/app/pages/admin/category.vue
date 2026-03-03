@@ -4,7 +4,7 @@
     <div class="mb-6 flex justify-between items-center px-1">
       <h1 class="text-2xl font-semibold text-gray-800 m-0">Categories</h1>
       <ol class="flex text-sm text-gray-500 bg-transparent mb-0">
-        <li class="mr-2"><NuxtLink to="/" class="text-blue-500 hover:underline">Home</NuxtLink></li>
+        <li class="mr-2"><NuxtLink to="/admin" class="text-blue-500 hover:underline">Home</NuxtLink></li>
         <li>/ Categories</li>
       </ol>
     </div>
@@ -84,6 +84,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { authFetch } from '../../utils/api.js'
+
+definePageMeta({ layout: 'admin' })
 
 const items = ref([])
 const form = ref({ name: '', description: '' })
@@ -92,7 +95,7 @@ const API_URL = 'http://localhost:3001/category'
 
 const fetchItems = async () => {
   try {
-    const res = await fetch(API_URL)
+    const res = await authFetch(API_URL)
     items.value = await res.json()
   } catch (err) {
     console.error(err)
@@ -102,15 +105,13 @@ const fetchItems = async () => {
 const saveItem = async () => {
   try {
     if (editingId.value) {
-      await fetch(`${API_URL}/${editingId.value}`, {
+      await authFetch(`${API_URL}/${editingId.value}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form.value)
       })
     } else {
-      await fetch(API_URL, {
+      await authFetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form.value)
       })
     }
@@ -134,7 +135,7 @@ const cancelEdit = () => {
 const deleteItem = async (id) => {
   if (!confirm('Are you sure you want to delete this category?')) return
   try {
-    await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+    await authFetch(`${API_URL}/${id}`, { method: 'DELETE' })
     await fetchItems()
   } catch (err) {
     console.error(err)

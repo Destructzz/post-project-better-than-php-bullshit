@@ -4,7 +4,7 @@
     <div class="mb-6 flex justify-between items-center px-1">
       <h1 class="text-2xl font-semibold text-gray-800 m-0">Posts</h1>
       <ol class="flex text-sm text-gray-500 bg-transparent mb-0">
-        <li class="mr-2"><NuxtLink to="/" class="text-blue-500 hover:underline">Home</NuxtLink></li>
+        <li class="mr-2"><NuxtLink to="/admin" class="text-blue-500 hover:underline">Home</NuxtLink></li>
         <li>/ Posts</li>
       </ol>
     </div>
@@ -141,6 +141,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { authFetch } from '../../utils/api.js'
+
+definePageMeta({ layout: 'admin' })
 
 const items = ref([])
 const categories = ref([])
@@ -158,10 +161,10 @@ const TAG_API_URL = `${BASE_URL}/tags`
 const fetchAll = async () => {
   try {
     const [resPosts, resCats, resAuthors, resTags] = await Promise.all([
-      fetch(API_URL).then(r => r.json()),
-      fetch(CAT_API_URL).then(r => r.json()),
-      fetch(AUTH_API_URL).then(r => r.json()),
-      fetch(TAG_API_URL).then(r => r.json())
+      authFetch(API_URL).then(r => r.json()),
+      authFetch(CAT_API_URL).then(r => r.json()),
+      authFetch(AUTH_API_URL).then(r => r.json()),
+      authFetch(TAG_API_URL).then(r => r.json())
     ])
     items.value = resPosts
     categories.value = resCats
@@ -182,15 +185,13 @@ const saveItem = async () => {
     }
     
     if (editingId.value) {
-      await fetch(`${API_URL}/${editingId.value}`, {
+      await authFetch(`${API_URL}/${editingId.value}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
     } else {
-      await fetch(API_URL, {
+      await authFetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
     }
@@ -220,12 +221,13 @@ const cancelEdit = () => {
 const deleteItem = async (id) => {
   if (!confirm('Are you sure you want to delete this post?')) return
   try {
-    await fetch(`${API_URL}/${id}`, { method: 'DELETE' })
+    await authFetch(`${API_URL}/${id}`, { method: 'DELETE' })
     await fetchAll()
   } catch (err) {
     console.error('Delete error:', err)
   }
 }
+
 
 onMounted(() => {
   fetchAll()

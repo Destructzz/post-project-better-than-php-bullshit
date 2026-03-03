@@ -9,6 +9,9 @@ import { CategoryModule } from './category/category.module';
 import { AuthorModule } from './author/author.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { TagModule } from './tag/tag.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import { TagModule } from './tag/tag.module';
     AuthorModule,
     DashboardModule,
     TagModule,
+    AuthModule,
+    UserModule,
+    SeedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
