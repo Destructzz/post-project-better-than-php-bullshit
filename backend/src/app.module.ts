@@ -6,6 +6,7 @@ import * as Joi from 'joi';
 import { DatabaseModule } from './database/database.module';
 import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
+import { AuthorModule } from './author/author.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CategoryModule } from './category/category.module';
     DatabaseModule,
     PostModule,
     CategoryModule,
+    AuthorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
