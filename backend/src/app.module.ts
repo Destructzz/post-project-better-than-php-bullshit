@@ -7,6 +7,8 @@ import { DatabaseModule } from './database/database.module';
 import { PostModule } from './post/post.module';
 import { CategoryModule } from './category/category.module';
 import { AuthorModule } from './author/author.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { AuthorModule } from './author/author.module';
     PostModule,
     CategoryModule,
     AuthorModule,
+    DashboardModule,
+    TagModule,
   ],
   controllers: [AppController],
   providers: [AppService],

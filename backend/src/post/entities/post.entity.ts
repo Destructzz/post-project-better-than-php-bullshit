@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
 import { Category } from "../../category/entities/category.entity";
 import { Author } from "../../author/entities/author.entity";
+import { Tag } from "../../tag/entities/tag.entity";
 
 @Entity()
 export class Post {
@@ -26,4 +27,8 @@ export class Post {
     @ManyToOne(() => Author, author => author.posts, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'author_id' })
     author: Author;
+
+    @ManyToMany(() => Tag, tag => tag.posts)
+    @JoinTable({ name: 'post_tag' })
+    tags: Tag[];
 }

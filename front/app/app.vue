@@ -19,6 +19,9 @@
             <NuxtLink to="/authors" class="flex items-center px-4 py-3 rounded hover:bg-white/10 transition-colors" active-class="bg-[#007bff] text-white hover:bg-[#007bff]">
               <span>Authors</span>
             </NuxtLink>
+            <NuxtLink to="/tags" class="flex items-center px-4 py-3 rounded hover:bg-white/10 transition-colors" active-class="bg-[#007bff] text-white hover:bg-[#007bff]">
+              <span>Tags</span>
+            </NuxtLink>
             <NuxtLink to="/post" class="flex items-center px-4 py-3 rounded hover:bg-white/10 transition-colors" active-class="bg-[#007bff] text-white hover:bg-[#007bff]">
               <span>Posts</span>
             </NuxtLink>

@@ -16,4 +16,7 @@ export class CreatePostDto {
     @IsNumber()
     @IsOptional()
     author_id: number;
+
+    @IsOptional()
+    tag_ids?: number[];
 }
